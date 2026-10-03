@@ -1,0 +1,51 @@
+[
+  {
+    "id": "heatpro",
+    "name": "HeatPro HVAC",
+    "trade": "heating_cooling",
+    "phone": "617-555-0101",
+    "same_day": true
+  },
+  {
+    "id": "flowright",
+    "name": "FlowRight Plumbing",
+    "trade": "plumbing",
+    "phone": "617-555-0102",
+    "same_day": true
+  },
+  {
+    "id": "brightspark",
+    "name": "BrightSpark Electric",
+    "trade": "electrical",
+    "phone": "617-555-0103",
+    "same_day": true
+  },
+  {
+    "id": "keyfast",
+    "name": "KeyFast Locksmith",
+    "trade": "locks",
+    "phone": "617-555-0104",
+    "same_day": true
+  },
+  {
+    "id": "appliancecare",
+    "name": "ApplianceCare Repair",
+    "trade": "appliance",
+    "phone": "617-555-0105",
+    "same_day": false
+  },
+  {
+    "id": "greenshield",
+    "name": "GreenShield Pest",
+    "trade": "pest",
+    "phone": "617-555-0106",
+    "same_day": false
+  },
+  {
+    "id": "allfix",
+    "name": "AllFix Handyman",
+    "trade": "general",
+    "phone": "617-555-0107",
+    "same_day": false
+  }
+]

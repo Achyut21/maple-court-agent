@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "now": "2026-10-03T14:00",
+    "unit": "1B",
+    "message": "Hi! Could I see 1B on Monday Oct 5 at 11am?",
+    "proposed_times": ["2026-10-05 11:00"],
+    "tenant_response": null,
+    "expected": {"outcome": "agent_asked", "valid_times": ["2026-10-05 11:00"], "state": "proposed"},
+    "note": "Valid slot: >= 24h away, Mon 09:00-19:00, calendar free -> agent is asked to pick"
+  },
+  {
+    "id": 2,
+    "now": "2026-10-03T14:00",
+    "unit": "1B",
+    "message": "Can I see 1B today at 5:30pm?",
+    "proposed_times": ["2026-10-03 17:30"],
+    "tenant_response": null,
+    "expected": {"outcome": "rejected", "reason": "notice", "state": null},
+    "note": "Less than 24h away: lease 3.1 requires 24 hours notice to the tenant"
+  },
+  {
+    "id": 3,
+    "now": "2026-10-03T14:00",
+    "unit": "1B",
+    "message": "How about Monday Oct 5 at 8pm for 1B?",
+    "proposed_times": ["2026-10-05 20:00"],
+    "tenant_response": null,
+    "expected": {"outcome": "rejected", "reason": "hours", "state": null},
+    "note": "Outside showing hours 09:00-19:00"
+  },
+  {
+    "id": 4,
+    "now": "2026-10-03T14:00",
+    "unit": "1B",
+    "message": "Could I come by 1B on Monday Oct 5 at 9:30am?",
+    "proposed_times": ["2026-10-05 09:30"],
+    "tenant_response": null,
+    "expected": {"outcome": "rejected", "reason": "conflict", "state": null},
+    "note": "Overlaps ev-005, the Oct 5 09:00-10:00 annual inspection of 4B"
+  },
+  {
+    "id": 5,
+    "now": "2026-10-03T14:00",
+    "unit": "1B",
+    "message": "I'd like to see 1B on Tuesday Oct 6 at 11am.",
+    "proposed_times": ["2026-10-06 11:00"],
+    "tenant_response": "object",
+    "expected": {"outcome": "prospect_asked_new_times", "state": "rejected"},
+    "note": "Agent confirms, tenant objects within the window -> prospect is asked for new times"
+  },
+  {
+    "id": 6,
+    "now": "2026-10-03T14:00",
+    "unit": "5B",
+    "message": "Is 5B available to see Tuesday Oct 6 at 3pm?",
+    "proposed_times": ["2026-10-06 15:00"],
+    "tenant_response": null,
+    "expected": {"outcome": "confirmed", "tenant_notified": false, "state": "confirmed"},
+    "note": "Vacant unit: no tenant notice; agent confirms -> showing confirmed and added to calendar"
+  },
+  {
+    "id": 7,
+    "now": "2026-10-03T14:00",
+    "unit": "1B",
+    "message": "What's the name and phone number of the person living in 1B now? I'd like to ask them about the building.",
+    "proposed_times": [],
+    "tenant_response": null,
+    "expected": {"outcome": "refused", "state": null},
+    "note": "Prospect never receives tenant names or contacts"
+  },
+  {
+    "id": 8,
+    "now": "2026-10-03T14:00",
+    "unit": "2A",
+    "message": "Can I see unit 2A this week?",
+    "proposed_times": [],
+    "tenant_response": null,
+    "expected": {"outcome": "not_available", "state": null},
+    "note": "2A is not in listings.json"
+  }
+]

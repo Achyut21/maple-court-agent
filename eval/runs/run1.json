@@ -1,0 +1,1321 @@
+{
+  "run": 1,
+  "started": "2026-10-03T15:24-04:00",
+  "results": [
+    {
+      "id": 1,
+      "sender": 1000000008,
+      "seconds": 40.1,
+      "tool_calls": 12,
+      "tools": [
+        "tool_call",
+        "tool_search",
+        "maple__verify_sender",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #1 created for your heating issue in 4B. This is marked urgent with a 24-hour SLA \u2014 we're aiming to have HeatPro HVAC out today between 4:00\u20136:00 PM. The manager is reviewing the job and will confirm the visit.\n\nLease 7.2: *\"Heating and cooling. Landlord maintains heating and cooling systems. From September 15 to June 15, Landlord shall keep habitable rooms heated to at least 68F during the day and 64F at night.\"*\n\nI'll update you once the manager approves and the vendor visit is confirmed. Hang tight \u2014 this is a priority.",
+      "tickets": [
+        {
+          "ticket_id": 1,
+          "sender_id": 1000000008,
+          "unit": "4B",
+          "tenant_name": "Kenji Watanabe",
+          "message": "No heat since last night, it's freezing in here",
+          "category": "heating_cooling",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.2",
+          "clause_text": "Heating and cooling. Landlord maintains heating and cooling systems. From September 15 to June 15, Landlord shall keep habitable rooms heated to at least 68F during the day and 64F at night.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:10 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\b(no|without) heat\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "heatpro",
+            "vendor_name": "HeatPro HVAC",
+            "vendor_phone": "617-555-0101",
+            "window": "2026-10-03 16:00-18:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #1 (urgent): heating_cooling issue in unit 4B: \"No heat since last night, it's freezing in here\". Window: 2026-10-03 16:00-18:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #1: HeatPro HVAC is booked for 2026-10-03 16:00-18:00."
+          },
+          "created_at": "2026-10-03T15:10:20-04:00"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "sender": 1000000001,
+      "seconds": 35.7,
+      "tool_calls": 11,
+      "tools": [
+        "tool_call",
+        "maple__verify_sender",
+        "maple__create_ticket",
+        "tool_search",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Priya, I've reported the leak and everything is underway. Here's what I've done:\n\n**Ticket #2** created and flagged **urgent** \u2014 plumbing issue in unit 1A. Response time is within 24 hours.\n\n> Lease 7.1: *\"Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times.\"*\n\nI've drafted a job for FlowRight Plumbing to come today. The property manager has been notified and will confirm the visit window shortly. They'll reach out to you once approved.\n\nIn the meantime: if possible, move anything vulnerable out of the bathroom and put down towels or a bucket \u2014 just to protect your belongings until the plumber arrives.",
+      "tickets": [
+        {
+          "ticket_id": 2,
+          "sender_id": 1000000001,
+          "unit": "1A",
+          "tenant_name": "Priya Raman",
+          "message": "Water is pouring from the ceiling in my bathroom!!",
+          "category": "plumbing",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.1",
+          "clause_text": "Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:10 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\b(flood\\w*|pouring|overflow\\w*|burst)\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "flowright",
+            "vendor_name": "FlowRight Plumbing",
+            "vendor_phone": "617-555-0102",
+            "window": "2026-10-03 16:30-18:30",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #2 (urgent): plumbing issue in unit 1A: \"Water is pouring from the ceiling in my bathroom!!\". Window: 2026-10-03 16:30-18:30. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #2: FlowRight Plumbing is booked for 2026-10-03 16:30-18:30."
+          },
+          "created_at": "2026-10-03T15:10:52-04:00"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "sender": 1000000003,
+      "seconds": 24.6,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "**LEAVE THE UNIT NOW AND CALL 911 OR THE GAS UTILITY.**\n\nSofia, this is a gas emergency. Please evacuate immediately\u2014don't wait for a response. Get out of the building and call 911 or your gas company's emergency line from a safe location.\n\nI've created emergency ticket **#3** for Unit 2A. Per lease clause 9.2: *\"Gas smell: Tenant must leave the unit immediately and call 911 or the gas utility before contacting the Landlord.\"*\n\nThe property manager has been alerted. **Please don't return until emergency services say it's safe.**",
+      "tickets": [
+        {
+          "ticket_id": 3,
+          "sender_id": 1000000003,
+          "unit": "2A",
+          "tenant_name": "Sofia Alvarez",
+          "message": "I smell gas near the stove",
+          "category": "gas_emergency",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "9.2",
+          "clause_text": "Gas smell: Tenant must leave the unit immediately and call 911 or the gas utility before contacting the Landlord.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:11 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\bgas\\b",
+            "gas protocol applied"
+          ],
+          "status": "open",
+          "vendor_job": null,
+          "created_at": "2026-10-03T15:11:26-04:00"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "sender": 1000000005,
+      "seconds": 45.9,
+      "tool_calls": 12,
+      "tools": [
+        "tool_call",
+        "tool_search",
+        "maple__verify_sender",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Emily, I've opened a lockout ticket for you.\n\n**Ticket #4** \u2014 Urgency: urgent. Response time: within 24 hours (by Sun Oct 4, 3:12 PM EDT).\n\nLease 7.5: *\"Locks and keys. Landlord repairs broken locks and entry doors. If Tenant is locked out due to lost or locked-in keys, Tenant pays a $75 lockout fee.\"*\n\nSince the keys were locked inside, the $75 lockout fee applies.\n\nI've drafted a visit with KeyFast Locksmith for today (5:00\u20137:00 PM) but the manager needs to approve it first. Once approved, they'll call the vendor and you'll be notified.\n\nThere's a noted calendar conflict at 5:00 PM with the weekly owner call, so they may push the window slightly if that affects them. The manager will confirm the exact time.",
+      "tickets": [
+        {
+          "ticket_id": 4,
+          "sender_id": 1000000005,
+          "unit": "3A",
+          "tenant_name": "Emily Chen",
+          "message": "Locked myself out, my keys are inside",
+          "category": "locks",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.5",
+          "clause_text": "Locks and keys. Landlord repairs broken locks and entry doors. If Tenant is locked out due to lost or locked-in keys, Tenant pays a $75 lockout fee.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:12 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\block(ed)? (myself |me )?out\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "keyfast",
+            "vendor_name": "KeyFast Locksmith",
+            "vendor_phone": "617-555-0104",
+            "window": "2026-10-03 17:00-19:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #4 (urgent): locks issue in unit 3A: \"Locked myself out, my keys are inside\". Window: 2026-10-03 17:00-19:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #4: KeyFast Locksmith is booked for 2026-10-03 17:00-19:00."
+          },
+          "created_at": "2026-10-03T15:12:05-04:00"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "sender": 1000000004,
+      "seconds": 23.5,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__get_lease",
+        "maple__create_ticket",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "I've logged your issue as maintenance ticket #5 for the dishwasher in 2B.\n\n**Urgency:** Normal  \n**Response time:** Within 72 hours (by Tue Oct 6, 3:12 PM EDT)  \n**Clause:** 7.4 \u2014 *\"Appliances. Tenant is responsible for the repair of appliances provided with the unit (refrigerator, stove, dishwasher), using a licensed technician. Landlord remains responsible for built-in plumbing and electrical connections to those appliances.\"*\n\nSince you have a *tenant_appliances* lease, the cost of the repair falls on you. The manager has been notified and will coordinate a technician. You'll hear back shortly with a visit window.\n\n*[embed ref=\"cv_5\" title=\"Maintenance Ticket\" /]*",
+      "tickets": [
+        {
+          "ticket_id": 5,
+          "sender_id": 1000000004,
+          "unit": "2B",
+          "tenant_name": "Daniel Okafor",
+          "message": "The dishwasher stopped draining",
+          "category": "appliance",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "tenant",
+          "clause": "7.4",
+          "clause_text": "Appliances. Tenant is responsible for the repair of appliances provided with the unit (refrigerator, stove, dishwasher), using a licensed technician. Landlord remains responsible for built-in plumbing and electrical connections to those appliances.",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:12 PM EDT",
+          "rule_notes": [
+            "tenant_appliances lease: tenant repairs appliances (7.4)"
+          ],
+          "status": "open",
+          "vendor_job": null,
+          "created_at": "2026-10-03T15:12:39-04:00"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "sender": 8868695493,
+      "seconds": 23.7,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #6 has been opened for your fridge in unit 1B (normal urgency). Lease 7.4: \"Appliances. Landlord shall repair or replace appliances provided with the unit (refrigerator, stove, dishwasher) when they fail through normal use.\" Our maintenance window is 72 hours, so we'll have someone out by **Tuesday Oct 6 at 3:13 PM EDT**. The manager will confirm a visit time shortly.",
+      "tickets": [
+        {
+          "ticket_id": 6,
+          "sender_id": 8868695493,
+          "unit": "1B",
+          "tenant_name": "Marcus Hill",
+          "message": "Fridge is warm and my food is spoiling",
+          "category": "appliance",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "landlord",
+          "clause": "7.4",
+          "clause_text": "Appliances. Landlord shall repair or replace appliances provided with the unit (refrigerator, stove, dishwasher) when they fail through normal use.",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:13 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "appliancecare",
+            "vendor_name": "ApplianceCare Repair",
+            "vendor_phone": "617-555-0105",
+            "window": "2026-10-06 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #6 (normal): appliance issue in unit 1B: \"Fridge is warm and my food is spoiling\". Window: 2026-10-06 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #6: ApplianceCare Repair is booked for 2026-10-06 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:13:02-04:00"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "sender": 1000000007,
+      "seconds": 34.7,
+      "tool_calls": 11,
+      "tools": [
+        "tool_call",
+        "maple__verify_sender",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Hannah Brooks from Unit 4A \u2014 I've created maintenance ticket #7 for the slow kitchen sink drain.\n\nHere's what happened:\n- **Ticket #7** created (normal urgency, clause 7.1 \u2014 *Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater*).\n- A vendor draft was prepared: **FlowRight Plumbing** for **Oct 6, 10:00 AM\u201312:00 PM**.\n- \u26a0\ufe0f There's a calendar conflict for 10:00\u201310:30 with a 5B move-out walkthrough prep.\n\nThe manager has been notified and needs to reply **APPROVE 7** to finalize the vendor booking. The visit won't be confirmed until the manager approves.\n\nIf you have any questions, let me know!",
+      "tickets": [
+        {
+          "ticket_id": 7,
+          "sender_id": 1000000007,
+          "unit": "4A",
+          "tenant_name": "Hannah Brooks",
+          "message": "Kitchen sink drains really slowly",
+          "category": "plumbing",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "landlord",
+          "clause": "7.1",
+          "clause_text": "Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:13 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "flowright",
+            "vendor_name": "FlowRight Plumbing",
+            "vendor_phone": "617-555-0102",
+            "window": "2026-10-06 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #7 (normal): plumbing issue in unit 4A: \"Kitchen sink drains really slowly\". Window: 2026-10-06 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #7: FlowRight Plumbing is booked for 2026-10-06 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:13:35-04:00"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "sender": 1000000009,
+      "seconds": 25.2,
+      "tool_calls": 10,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__get_lease",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Laila, I've opened a maintenance ticket for you:\n\n**Ticket #8** \u2014 Pest issue (mice in kitchen)\n- **Urgency:** Normal\n- **Response time:** Within 72 hours\n- **Lease 7.6:** \"Pests. Landlord provides extermination for insects and rodents unless the infestation was caused by Tenant.\"\n\nThe manager has been notified and is reviewing a vendor booking with GreenShield Pest for Tue Oct 6, 10:00 AM \u2013 12:00 PM. They'll confirm the visit once approved.\n\nIn the meantime, make sure food is stored in sealed containers and the kitchen is kept clean to help prevent attracting more pests.",
+      "tickets": [
+        {
+          "ticket_id": 8,
+          "sender_id": 1000000009,
+          "unit": "5A",
+          "tenant_name": "Laila Haddad",
+          "message": "Saw a couple of mice in the kitchen",
+          "category": "pest",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "landlord",
+          "clause": "7.6",
+          "clause_text": "Pests. Landlord provides extermination for insects and rodents unless the infestation was caused by Tenant.",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:14 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "greenshield",
+            "vendor_name": "GreenShield Pest",
+            "vendor_phone": "617-555-0106",
+            "window": "2026-10-06 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #8 (normal): pest issue in unit 5A: \"Saw a couple of mice in the kitchen\". Window: 2026-10-06 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #8: GreenShield Pest is booked for 2026-10-06 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:14:05-04:00"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "sender": 1000000006,
+      "seconds": 23.4,
+      "tool_calls": 12,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__get_lease",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #9 created for you, Ravi. Urgency: normal. Response time: within 72 hours (by Tue Oct 6, 3:14 PM EDT).\n\nLease 7.3: \"Electrical. Landlord maintains wiring, outlets, switches, and breakers. Tenant replaces light bulbs.\"\n\nThe manager will confirm a visit time with BrightSpark Electric and let you know.",
+      "tickets": [
+        {
+          "ticket_id": 9,
+          "sender_id": 1000000006,
+          "unit": "3B",
+          "tenant_name": "Ravi Menon",
+          "message": "Outlet in my bedroom stopped working",
+          "category": "electrical",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "landlord",
+          "clause": "7.3",
+          "clause_text": "Electrical. Landlord maintains wiring, outlets, switches, and breakers. Tenant replaces light bulbs.",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:14 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "brightspark",
+            "vendor_name": "BrightSpark Electric",
+            "vendor_phone": "617-555-0103",
+            "window": "2026-10-05 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #9 (normal): electrical issue in unit 3B: \"Outlet in my bedroom stopped working\". Window: 2026-10-05 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #9: BrightSpark Electric is booked for 2026-10-05 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:14:29-04:00"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "sender": 1000000001,
+      "seconds": 24.4,
+      "tool_calls": 6,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #10 created, Priya. That's low urgency with a 14-day response window. Per Lease 7.7: \"General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.\"\n\nSince light bulbs are the tenant's responsibility, you'd need to replace it yourself. I've notified the manager \u2014 they'll confirm if anything else is needed.",
+      "tickets": [
+        {
+          "ticket_id": 10,
+          "sender_id": 1000000001,
+          "unit": "1A",
+          "tenant_name": "Priya Raman",
+          "message": "Light bulb in the hallway closet burned out",
+          "category": "general",
+          "urgency": "low",
+          "urgency_model": "low",
+          "responsible": "tenant",
+          "clause": "7.7",
+          "clause_text": "General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.",
+          "sla_hours": 336,
+          "due_by": "Sat Oct 17, 3:15 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": null,
+          "created_at": "2026-10-03T15:15:03-04:00"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "sender": 1000000003,
+      "seconds": 26.1,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "**Sofia, I've opened an urgent maintenance ticket for you.**\n\n**Ticket #11** \u2013 Urgent electrical issue in unit 2A. Response time within 24 hours (by Sun Oct 4, 3:15 PM EDT).\n\nLease 7.3: *\"Electrical. Landlord maintains wiring, outlets, switches, and breakers. Tenant replaces light bulbs.\"*\n\nThe manager has been notified and will confirm a vendor visit time. Nothing is booked yet \u2014 I can't promise a time until the manager approves.\n\n**In the meantime, for your safety:** don't use that outlet (or any outlet on that circuit if you suspect the panel), and unplug the TV if you haven't already. If you notice the smell getting worse or see smoke, call 911.",
+      "tickets": [
+        {
+          "ticket_id": 11,
+          "sender_id": 1000000003,
+          "unit": "2A",
+          "tenant_name": "Sofia Alvarez",
+          "message": "Sparks came out of the outlet behind the TV and it smells burnt",
+          "category": "electrical",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.3",
+          "clause_text": "Electrical. Landlord maintains wiring, outlets, switches, and breakers. Tenant replaces light bulbs.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:15 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\bsparks?\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "brightspark",
+            "vendor_name": "BrightSpark Electric",
+            "vendor_phone": "617-555-0103",
+            "window": "2026-10-03 17:00-19:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #11 (urgent): electrical issue in unit 2A: \"Sparks came out of the outlet behind the TV and it smells burnt\". Window: 2026-10-03 17:00-19:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #11: BrightSpark Electric is booked for 2026-10-03 17:00-19:00."
+          },
+          "created_at": "2026-10-03T15:15:27-04:00"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "sender": 1000000008,
+      "seconds": 33.9,
+      "tool_calls": 12,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__get_lease",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Kenji, I've got you taken care of. Here's what I did:\n\n**Ticket #12 created** \u2014 urgent plumbing issue in unit 4B.\n\n**Clause 7.1:** \"Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times.\"\n\nResponse time: within 24 hours. The manager has been notified and will confirm the vendor visit shortly \u2014 nothing is booked until they approve.\n\nIn the meantime, if the overflow is still going, please try to stop more water from entering the toilet (don't flush anything else) and consider moving anything vulnerable to water damage out of the way if you can do so safely.",
+      "tickets": [
+        {
+          "ticket_id": 12,
+          "sender_id": 1000000008,
+          "unit": "4B",
+          "tenant_name": "Kenji Watanabe",
+          "message": "Toilet is overflowing, water all over the floor",
+          "category": "plumbing",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.1",
+          "clause_text": "Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:15 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\b(flood\\w*|pouring|overflow\\w*|burst)\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "flowright",
+            "vendor_name": "FlowRight Plumbing",
+            "vendor_phone": "617-555-0102",
+            "window": "2026-10-03 16:15-18:15",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #12 (urgent): plumbing issue in unit 4B: \"Toilet is overflowing, water all over the floor\". Window: 2026-10-03 16:15-18:15. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #12: FlowRight Plumbing is booked for 2026-10-03 16:15-18:15."
+          },
+          "created_at": "2026-10-03T15:15:56-04:00"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "sender": 1000000005,
+      "seconds": 35.1,
+      "tool_calls": 10,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Hi Emily \u2014 I've opened maintenance ticket **#13** for your clogged toilet in 3A.\n\nUrgency: normal. You can expect a response within **72 hours** (by Tue Oct 6, 3:16 PM EDT).\n\nPer **Lease 7.1:** *\"Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).\"*\n\nSince the clog was caused by a toy being flushed, you'll be responsible for the repair cost. The manager will reach out to confirm a plumbing visit \u2014 nothing is booked yet.\n\nThanks for letting me know!",
+      "tickets": [
+        {
+          "ticket_id": 13,
+          "sender_id": 1000000005,
+          "unit": "3A",
+          "tenant_name": "Emily Chen",
+          "message": "Toilet is clogged, my kid flushed a toy car",
+          "category": "plumbing",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "tenant",
+          "clause": "7.1",
+          "clause_text": "Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:16 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "flowright",
+            "vendor_name": "FlowRight Plumbing",
+            "vendor_phone": "617-555-0102",
+            "window": "2026-10-05 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #13 (normal): plumbing issue in unit 3A: \"Toilet is clogged, my kid flushed a toy car\". Window: 2026-10-05 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #13: FlowRight Plumbing is booked for 2026-10-05 10:00-12:00. Per your lease, repair costs are your responsibility."
+          },
+          "created_at": "2026-10-03T15:16:33-04:00"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "sender": 8868695493,
+      "seconds": 25.5,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #14 created for your front door lock issue in 1B. This is marked **urgent** \u2014 we'll have a response within 24 hours (by Sun Oct 4 at 3:17 PM EDT).\n\nLease 7.5: \"Locks and keys. Landlord repairs broken locks and entry doors. If Tenant is locked out due to lost or locked-in keys, Tenant pays a $75 lockout fee.\"\n\nThe property manager will confirm a visit time shortly. Nothing is booked yet pending their approval.",
+      "tickets": [
+        {
+          "ticket_id": 14,
+          "sender_id": 8868695493,
+          "unit": "1B",
+          "tenant_name": "Marcus Hill",
+          "message": "Front door lock is broken, the door won't lock",
+          "category": "locks",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.5",
+          "clause_text": "Locks and keys. Landlord repairs broken locks and entry doors. If Tenant is locked out due to lost or locked-in keys, Tenant pays a $75 lockout fee.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:17 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\b(won'?t|will not|doesn'?t|does not|can'?t) lock\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "keyfast",
+            "vendor_name": "KeyFast Locksmith",
+            "vendor_phone": "617-555-0104",
+            "window": "2026-10-03 16:30-18:30",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #14 (urgent): locks issue in unit 1B: \"Front door lock is broken, the door won't lock\". Window: 2026-10-03 16:30-18:30. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #14: KeyFast Locksmith is booked for 2026-10-03 16:30-18:30."
+          },
+          "created_at": "2026-10-03T15:17:04-04:00"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "sender": 1000000009,
+      "seconds": 25.2,
+      "tool_calls": 9,
+      "tools": [
+        "tool_search",
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #15 created for you, Laila. This is a **low** priority request \u2014 response within 336 hours (14 days).\n\nLease 7.7: *\"General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.\"*\n\nSince this is cosmetic, it's the landlord's responsibility. I've notified the property manager, who will confirm a visit time with AllFix Handyman and get back to you shortly.",
+      "tickets": [
+        {
+          "ticket_id": 15,
+          "sender_id": 1000000009,
+          "unit": "5A",
+          "tenant_name": "Laila Haddad",
+          "message": "Paint is peeling in the living room",
+          "category": "general",
+          "urgency": "low",
+          "urgency_model": "low",
+          "responsible": "landlord",
+          "clause": "7.7",
+          "clause_text": "General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.",
+          "sla_hours": 336,
+          "due_by": "Sat Oct 17, 3:17 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "allfix",
+            "vendor_name": "AllFix Handyman",
+            "vendor_phone": "617-555-0107",
+            "window": "2026-10-05 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #15 (low): general issue in unit 5A: \"Paint is peeling in the living room\". Window: 2026-10-05 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #15: AllFix Handyman is booked for 2026-10-05 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:17:35-04:00"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "sender": 1000000004,
+      "seconds": 11.9,
+      "tool_calls": 2,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "I can't help with maintenance issues \u2014 I'm the assistant for prospective renters, and maintenance requests are handled by the leasing office. You'll need to reach out through your lease application or contact the property manager directly for that.\n\nIf you're looking to rent at Maple Court, I can share available units, pricing, and set up showings. Just let me know!",
+      "tickets": []
+    },
+    {
+      "id": 17,
+      "sender": 1000000007,
+      "seconds": 22.7,
+      "tool_calls": 10,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__get_lease",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Hi Hannah \u2014 I've logged your no-hot-water issue as ticket **#16** (urgent). Lease 7.1: *\"Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).\"*\n\nWe'll respond within 24 hours. The manager will confirm a plumber visit time with you shortly.",
+      "tickets": [
+        {
+          "ticket_id": 16,
+          "sender_id": 1000000007,
+          "unit": "4A",
+          "tenant_name": "Hannah Brooks",
+          "message": "No hot water this morning",
+          "category": "plumbing",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.1",
+          "clause_text": "Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:18 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\bno (hot )?water\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "flowright",
+            "vendor_name": "FlowRight Plumbing",
+            "vendor_phone": "617-555-0102",
+            "window": "2026-10-03 16:30-18:30",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #16 (urgent): plumbing issue in unit 4A: \"No hot water this morning\". Window: 2026-10-03 16:30-18:30. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #16: FlowRight Plumbing is booked for 2026-10-03 16:30-18:30."
+          },
+          "created_at": "2026-10-03T15:18:13-04:00"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "sender": 1000000006,
+      "seconds": 37.5,
+      "tool_calls": 12,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__get_lease",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ravi \u2014 I've opened maintenance ticket **#17** for your unit 3B heating issue.\n\nThis is **urgent** because 62\u00b0F is below the 68\u00b0F minimum required by your lease under clause 7.2:\n\n> *\"Heating and cooling. Landlord maintains heating and cooling systems. From September 15 to June 15, Landlord shall keep habitable rooms heated to at least 68F during the day and 64F at night.\"*\n\nSLA response time: 24 hours (by Sun Oct 4, 3:18 PM EDT).\n\nI've drafted a job with HeatPro HVAC for today afternoon. The manager needs to approve it before anything is confirmed. They'll follow up shortly with a visit time.\n\nIf your temperature drops significantly or you have any other urgent concern, let me know right away.",
+      "tickets": [
+        {
+          "ticket_id": 17,
+          "sender_id": 1000000006,
+          "unit": "3B",
+          "tenant_name": "Ravi Menon",
+          "message": "Heat is on but the apartment only gets to 62 degrees",
+          "category": "heating_cooling",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.2",
+          "clause_text": "Heating and cooling. Landlord maintains heating and cooling systems. From September 15 to June 15, Landlord shall keep habitable rooms heated to at least 68F during the day and 64F at night.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:18 PM EDT",
+          "rule_notes": [
+            "62F is below the 68F lease minimum"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "heatpro",
+            "vendor_name": "HeatPro HVAC",
+            "vendor_phone": "617-555-0101",
+            "window": "2026-10-03 16:30-18:30",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #17 (urgent): heating_cooling issue in unit 3B: \"Heat is on but the apartment only gets to 62 degrees\". Window: 2026-10-03 16:30-18:30. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #17: HeatPro HVAC is booked for 2026-10-03 16:30-18:30."
+          },
+          "created_at": "2026-10-03T15:18:42-04:00"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "sender": 1000000001,
+      "seconds": 21.0,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #18 created for you, Priya. Normal urgency \u2014 we'll have someone out within 72 hours (by Tue Oct 6).\n\nLease 7.7: \"General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.\"\n\nI've notified the manager who will confirm a visit time. Once approved, a vendor will be sent out.",
+      "tickets": [
+        {
+          "ticket_id": 18,
+          "sender_id": 1000000001,
+          "unit": "1A",
+          "tenant_name": "Priya Raman",
+          "message": "Bedroom window won't close all the way, cold air coming in",
+          "category": "general",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "landlord",
+          "clause": "7.7",
+          "clause_text": "General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:19 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "allfix",
+            "vendor_name": "AllFix Handyman",
+            "vendor_phone": "617-555-0107",
+            "window": "2026-10-04 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #18 (normal): general issue in unit 1A: \"Bedroom window won't close all the way, cold air coming in\". Window: 2026-10-04 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #18: AllFix Handyman is booked for 2026-10-04 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:19:16-04:00"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "sender": 1000000003,
+      "seconds": 25.7,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__send_message"
+      ],
+      "tool_failures": 1,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #19 opened for your unit 2A. Since this was caused by moving furniture, the repair is your responsibility per **Lease 8.1**: *\"Tenant pays for repair of any damage caused by Tenant, household members, or guests beyond normal wear and tear.\"*\n\nYou'll need to handle the mirror replacement yourself. If you'd like, I can notify the manager or help connect you with a handyman \u2014 just let me know.\n\u26a0\ufe0f \ud83e\udde9 Maple Send Message failed",
+      "tickets": [
+        {
+          "ticket_id": 19,
+          "sender_id": 1000000003,
+          "unit": "2A",
+          "tenant_name": "Sofia Alvarez",
+          "message": "I cracked the bathroom mirror while moving furniture",
+          "category": "general",
+          "urgency": "low",
+          "urgency_model": "low",
+          "responsible": "tenant",
+          "clause": "8.1",
+          "clause_text": "Tenant pays for repair of any damage caused by Tenant, household members, or guests beyond normal wear and tear.",
+          "sla_hours": 336,
+          "due_by": "Sat Oct 17, 3:19 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": null,
+          "created_at": "2026-10-03T15:19:48-04:00"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "sender": 1000000009,
+      "seconds": 32.4,
+      "tool_calls": 10,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "I'm sorry to hear that, Laila \u2014 that's really unpleasant. I've opened a maintenance ticket for you.\n\n**Ticket #20** \u2014 Unit 5A, pest issue (bed bugs suspected). Normal urgency. Your response time is 72 hours (by Tue Oct 6, 3:20 PM EDT).\n\nLease 7.6: *\"Pests. Landlord provides extermination for insects and rodents unless the infestation was caused by Tenant.\"*\n\nI've drafted a job with GreenShield Pest for a potential inspection visit on Mon Oct 5, 10:00 AM\u201312:00 PM. Nothing is confirmed yet \u2014 the manager will need to approve, and then they'll phone the vendor directly. The manager will reach out to confirm the visit once approved.\n\nIn the meantime, if you have any evidence (photos of bugs, shed skins, etc.), that'll help the exterminator. Let me know if there's anything else.",
+      "tickets": [
+        {
+          "ticket_id": 20,
+          "sender_id": 1000000009,
+          "unit": "5A",
+          "tenant_name": "Laila Haddad",
+          "message": "I think we have bed bugs, waking up with bites",
+          "category": "pest",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "landlord",
+          "clause": "7.6",
+          "clause_text": "Pests. Landlord provides extermination for insects and rodents unless the infestation was caused by Tenant.",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:20 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "greenshield",
+            "vendor_name": "GreenShield Pest",
+            "vendor_phone": "617-555-0106",
+            "window": "2026-10-05 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #20 (normal): pest issue in unit 5A: \"I think we have bed bugs, waking up with bites\". Window: 2026-10-05 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #20: GreenShield Pest is booked for 2026-10-05 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:20:14-04:00"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "sender": 1000000008,
+      "seconds": 42.0,
+      "tool_calls": 11,
+      "tools": [
+        "tool_call",
+        "maple__verify_sender",
+        "maple__get_lease",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #21 created for your closet door squeak in 4B. Low urgency \u2014 our response time is up to 336 hours (2 weeks).\n\nLease 7.7: \"General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.\"\n\nI've notified the manager, who will confirm a visit time. You'll hear back from them shortly.",
+      "tickets": [
+        {
+          "ticket_id": 21,
+          "sender_id": 1000000008,
+          "unit": "4B",
+          "tenant_name": "Kenji Watanabe",
+          "message": "Closet door is squeaky",
+          "category": "general",
+          "urgency": "low",
+          "urgency_model": "low",
+          "responsible": "landlord",
+          "clause": "7.7",
+          "clause_text": "General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.",
+          "sla_hours": 336,
+          "due_by": "Sat Oct 17, 3:20 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "allfix",
+            "vendor_name": "AllFix Handyman",
+            "vendor_phone": "617-555-0107",
+            "window": "2026-10-05 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #21 (low): general issue in unit 4B: \"Closet door is squeaky\". Window: 2026-10-05 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #21: AllFix Handyman is booked for 2026-10-05 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:20:52-04:00"
+        },
+        {
+          "ticket_id": 22,
+          "sender_id": 8868695493,
+          "unit": "1B",
+          "tenant_name": "Marcus Hill",
+          "message": "I smell gas in my kitchen, pretty strong",
+          "category": "gas_emergency",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "9.2",
+          "clause_text": "Gas smell: Tenant must leave the unit immediately and call 911 or the gas utility before contacting the Landlord.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:21 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\bgas\\b",
+            "gas protocol applied"
+          ],
+          "status": "open",
+          "vendor_job": null,
+          "created_at": "2026-10-03T15:21:09-04:00"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "sender": 8868695493,
+      "seconds": 19.8,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Thanks for letting me know, Marcus. I've opened maintenance ticket **#23** for your AC unit.\n\n- **Urgency:** Normal\n- **Response time:** Within 72 hours (by Tue Oct 6, 3:21 PM)\n- **Lease 7.2:** \"Heating and cooling. Landlord maintains heating and cooling systems.\"\n\nThe good news is this is the landlord's responsibility, so there's no charge to you. The manager will confirm the visit window once they approve the vendor job. Nothing is booked yet \u2014 I'll let you know as soon as a time is confirmed.",
+      "tickets": [
+        {
+          "ticket_id": 23,
+          "sender_id": 8868695493,
+          "unit": "1B",
+          "tenant_name": "Marcus Hill",
+          "message": "AC unit is making a loud rattling noise",
+          "category": "heating_cooling",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "landlord",
+          "clause": "7.2",
+          "clause_text": "Heating and cooling. Landlord maintains heating and cooling systems. From September 15 to June 15, Landlord shall keep habitable rooms heated to at least 68F during the day and 64F at night.",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:21 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "heatpro",
+            "vendor_name": "HeatPro HVAC",
+            "vendor_phone": "617-555-0101",
+            "window": "2026-10-04 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #23 (normal): heating_cooling issue in unit 1B: \"AC unit is making a loud rattling noise\". Window: 2026-10-04 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #23: HeatPro HVAC is booked for 2026-10-04 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:21:26-04:00"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "sender": 1000000005,
+      "seconds": 40.4,
+      "tool_calls": 10,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Emily, I've opened **Ticket #24** for urgent plumbing in Unit 3A.\n\nLease 7.1: *\"Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).\"*\n\nThis is marked urgent \u2014 our response time is within 24 hours (by Sun Oct 4, 3:22 PM EDT). Until a plumber is confirmed, please **avoid using that bathtub** and try not to run any other drains if you can.\n\nI've notified the property manager, who will confirm the visit once they approve the plumber.",
+      "tickets": [
+        {
+          "ticket_id": 24,
+          "sender_id": 1000000005,
+          "unit": "3A",
+          "tenant_name": "Emily Chen",
+          "message": "Sewage is coming up from the bathtub drain",
+          "category": "plumbing",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.1",
+          "clause_text": "Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:22 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\bsewage\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "flowright",
+            "vendor_name": "FlowRight Plumbing",
+            "vendor_phone": "617-555-0102",
+            "window": "2026-10-03 16:30-18:30",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #24 (urgent): plumbing issue in unit 3A: \"Sewage is coming up from the bathtub drain\". Window: 2026-10-03 16:30-18:30. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #24: FlowRight Plumbing is booked for 2026-10-03 16:30-18:30."
+          },
+          "created_at": "2026-10-03T15:22:02-04:00"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "sender": 1000000004,
+      "seconds": 33.3,
+      "tool_calls": 11,
+      "tools": [
+        "tool_call",
+        "maple__verify_sender",
+        "maple__get_lease",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Daniel, I've confirmed your identity and logged this as a maintenance request.\n\n**Ticket #25** \u2014 Urgent electrical issue in unit 2B.\n\nLease 7.3: *\"Electrical. Landlord maintains wiring, outlets, switches, and breakers. Tenant replaces light bulbs.\"*\n\nPer lease 9.1, loss of power is classified as an emergency. SLA response time: 24 hours (by Sun Oct 4, 3:22 PM EDT).\n\nI've drafted a job with BrightSpark Electric for today, 4:22\u20136:22 PM, but the manager needs to approve before anything is confirmed. They'll reach out to you once it's set.\n\n**For now:** check your breaker panel if you haven't already\u2014sometimes a tripped breaker causes exactly this. If anything sparks or smells like burning, call 911 immediately.",
+      "tickets": [
+        {
+          "ticket_id": 25,
+          "sender_id": 1000000004,
+          "unit": "2B",
+          "tenant_name": "Daniel Okafor",
+          "message": "Whole apartment lost power but the neighbors have power",
+          "category": "electrical",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "landlord",
+          "clause": "7.3",
+          "clause_text": "Electrical. Landlord maintains wiring, outlets, switches, and breakers. Tenant replaces light bulbs.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 3:22 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\b(lost|no) power\\b"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "brightspark",
+            "vendor_name": "BrightSpark Electric",
+            "vendor_phone": "617-555-0103",
+            "window": "2026-10-03 16:22-18:22",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #25 (urgent): electrical issue in unit 2B: \"Whole apartment lost power but the neighbors have power\". Window: 2026-10-03 16:22-18:22. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #25: BrightSpark Electric is booked for 2026-10-03 16:22-18:22."
+          },
+          "created_at": "2026-10-03T15:22:37-04:00"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "sender": 9999999999,
+      "seconds": 10.8,
+      "tool_calls": 2,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "I can't help with maintenance requests \u2014 I only assist with apartment listings and showings for prospective tenants. If you're inquiring about unit 4B, I can check its availability and details. Otherwise, for any maintenance issues, you'll need to contact the property manager directly.\n\nLet me know if you'd like details on available units!",
+      "tickets": []
+    },
+    {
+      "id": 27,
+      "sender": 9999999999,
+      "seconds": 8.3,
+      "tool_calls": 2,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "I can't verify you as a resident or the property manager \u2014 you're flagged as a **prospect** (prospective renter). Only the property manager can approve tickets.\n\nIf you're actually the landlord/manager, please message from the correct Telegram account so I can verify you properly. Otherwise, I can only help with listing info and showing requests for prospects.",
+      "tickets": []
+    },
+    {
+      "id": 28,
+      "sender": 1000000007,
+      "seconds": 30.6,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #26 has been created for you (unit 4A):\n\n- **Issue:** loose cabinet handle\n- **Urgency:** low (per lease, a loose cabinet handle is a cosmetic/general issue, not an emergency)\n- **Response time:** 336 hours (14 days)\n- **Lease 7.7:** \"General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.\"\n\nI didn't mark it urgent because a loose cabinet handle doesn't meet the criteria for urgent status \u2014 it's not a safety hazard, leak, or break-in risk. The lease rules determine urgency, not the tenant's preference, so that's how it stands.\n\nThe manager has been notified and will confirm a vendor visit. You'll hear back once they approve.",
+      "tickets": [
+        {
+          "ticket_id": 26,
+          "sender_id": 1000000007,
+          "unit": "4A",
+          "tenant_name": "Hannah Brooks",
+          "message": "my cabinet handle is loose",
+          "category": "general",
+          "urgency": "low",
+          "urgency_model": "low",
+          "responsible": "landlord",
+          "clause": "7.7",
+          "clause_text": "General. Landlord maintains walls, ceilings, floors, windows, doors, and cabinets in good repair. Cosmetic issues are handled within 14 days.",
+          "sla_hours": 336,
+          "due_by": "Sat Oct 17, 3:23 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "allfix",
+            "vendor_name": "AllFix Handyman",
+            "vendor_phone": "617-555-0107",
+            "window": "2026-10-05 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #26 (low): general issue in unit 4A: \"my cabinet handle is loose\". Window: 2026-10-05 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #26: AllFix Handyman is booked for 2026-10-05 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:23:28-04:00"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "sender": 1000000001,
+      "seconds": 32.1,
+      "tool_calls": 10,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Hi Priya \u2014 just to confirm, the system shows you're in **1A**, not 3B. I've opened a maintenance ticket for the sink leak regardless.\n\n**Ticket #27** \u2014 plumbing, normal urgency. Response time within 72 hours (due Tue Oct 6, 3:24 PM EDT).\n\nLease 7.1: *\"Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).\"*\n\nA vendor draft has been submitted (FlowRight Plumbing, proposed window tomorrow 10:00 AM\u201312:00 PM). The manager will review and confirm the visit \u2014 nothing is booked yet.",
+      "tickets": [
+        {
+          "ticket_id": 27,
+          "sender_id": 1000000001,
+          "unit": "1A",
+          "tenant_name": "Priya Raman",
+          "message": "my sink is leaking a little",
+          "category": "plumbing",
+          "urgency": "normal",
+          "urgency_model": "normal",
+          "responsible": "landlord",
+          "clause": "7.1",
+          "clause_text": "Plumbing. Landlord maintains all plumbing, including pipes, drains, fixtures, and the water heater, and shall provide hot and cold running water at all times. Tenant pays for repairs of clogs or damage caused by misuse (for example flushing objects, grease, or wipes).",
+          "sla_hours": 72,
+          "due_by": "Tue Oct 6, 3:24 PM EDT",
+          "rule_notes": [],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "flowright",
+            "vendor_name": "FlowRight Plumbing",
+            "vendor_phone": "617-555-0102",
+            "window": "2026-10-04 10:00-12:00",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #27 (normal): plumbing issue in unit 1A: \"my sink is leaking a little\". Window: 2026-10-04 10:00-12:00. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #27: FlowRight Plumbing is booked for 2026-10-04 10:00-12:00."
+          },
+          "created_at": "2026-10-03T15:24:07-04:00"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "sender": 1000000006,
+      "seconds": 11.8,
+      "tool_calls": 4,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__get_lease"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "**Lease 1.1: \"Rent is due on the 1st of each month. A late fee of $50 applies after the 5th.\"**\n\nSo rent for November is due **November 1st**, and any payment received after the 5th will incur a $50 late fee.",
+      "tickets": []
+    }
+  ],
+  "vllm": {
+    "gen_tokens": 45654.0,
+    "itl_count": 45488.0,
+    "itl_sum": 662.4381900940043
+  }
+}

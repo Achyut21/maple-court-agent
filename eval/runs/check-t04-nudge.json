@@ -1,0 +1,61 @@
+{
+  "run": 3,
+  "started": "2026-10-03T16:09-04:00",
+  "results": [
+    {
+      "id": 4,
+      "sender": 1000000005,
+      "seconds": 31.0,
+      "tool_calls": 8,
+      "tools": [
+        "maple__verify_sender",
+        "tool_call",
+        "maple__create_ticket",
+        "maple__draft_vendor_job",
+        "maple__send_message"
+      ],
+      "tool_failures": 0,
+      "providers": [
+        "inference"
+      ],
+      "reply": "Ticket #1 created for your lockout. Since your keys are locked inside, per lease 7.5 \u2014 *\"If Tenant is locked out due to lost or locked-in keys, Tenant pays a $75 lockout fee\"* \u2014 you'll be responsible for the $75 lockout fee.\n\nI've asked KeyFast Locksmith for a window today at 5:10\u20137:10 PM, but the manager needs to approve before anything is booked. You'll hear back from them shortly. The manager will confirm your visit once approved.",
+      "tickets": [
+        {
+          "ticket_id": 1,
+          "sender_id": 1000000005,
+          "unit": "3A",
+          "tenant_name": "Emily Chen",
+          "message": "Locked myself out, my keys are inside",
+          "category": "locks",
+          "urgency": "urgent",
+          "urgency_model": "urgent",
+          "responsible": "tenant",
+          "clause": "7.5",
+          "clause_text": "Locks and keys. Landlord repairs broken locks and entry doors. If Tenant is locked out due to lost or locked-in keys, Tenant pays a $75 lockout fee.",
+          "sla_hours": 24,
+          "due_by": "Sun Oct 4, 4:08 PM EDT",
+          "rule_notes": [
+            "urgent rule matched: \\block(ed)? (myself |me )?out\\b",
+            "lockout: tenant pays the $75 lockout fee (7.5)"
+          ],
+          "status": "open",
+          "vendor_job": {
+            "vendor_id": "keyfast",
+            "vendor_name": "KeyFast Locksmith",
+            "vendor_phone": "617-555-0104",
+            "window": "2026-10-03 17:10-19:10",
+            "status": "draft",
+            "message_to_vendor": "Maple Court job #1 (urgent): locks issue in unit 3A: \"Locked myself out, my keys are inside\". Window: 2026-10-03 17:10-19:10. 120 Maple St, Cambridge, MA.",
+            "message_to_tenant": "Update on ticket #1: KeyFast Locksmith is booked for 2026-10-03 17:10-19:10. Per your lease, repair costs are your responsibility."
+          },
+          "created_at": "2026-10-03T16:08:39-04:00"
+        }
+      ]
+    }
+  ],
+  "vllm": {
+    "gen_tokens": 1659.0,
+    "itl_count": 1654.0,
+    "itl_sum": 24.92081259900442
+  }
+}

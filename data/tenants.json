@@ -1,0 +1,72 @@
+{
+  "_note": "Numeric Telegram user IDs (never usernames). On event day, replace 1B's id with the demo tenant phone's real ID and manager_ids with the manager phone's real ID.",
+  "property": {
+    "name": "Maple Court Apartments",
+    "address": "120 Maple St, Cambridge, MA",
+    "manager": "Jordan Lee"
+  },
+  "manager_ids": [
+    7747927489
+  ],
+  "tenants": [
+    {
+      "telegram_id": 1000000001,
+      "name": "Priya Raman",
+      "unit": "1A",
+      "lease_type": "standard"
+    },
+    {
+      "telegram_id": 8868695493,
+      "name": "Marcus Hill",
+      "unit": "1B",
+      "lease_type": "standard"
+    },
+    {
+      "telegram_id": 1000000003,
+      "name": "Sofia Alvarez",
+      "unit": "2A",
+      "lease_type": "standard"
+    },
+    {
+      "telegram_id": 1000000004,
+      "name": "Daniel Okafor",
+      "unit": "2B",
+      "lease_type": "tenant_appliances"
+    },
+    {
+      "telegram_id": 1000000005,
+      "name": "Emily Chen",
+      "unit": "3A",
+      "lease_type": "standard"
+    },
+    {
+      "telegram_id": 1000000006,
+      "name": "Ravi Menon",
+      "unit": "3B",
+      "lease_type": "tenant_appliances"
+    },
+    {
+      "telegram_id": 1000000007,
+      "name": "Hannah Brooks",
+      "unit": "4A",
+      "lease_type": "standard"
+    },
+    {
+      "telegram_id": 1000000008,
+      "name": "Kenji Watanabe",
+      "unit": "4B",
+      "lease_type": "standard"
+    },
+    {
+      "telegram_id": 1000000009,
+      "name": "Laila Haddad",
+      "unit": "5A",
+      "lease_type": "tenant_appliances"
+    }
+  ],
+  "vacant_units": [
+    "5B"
+  ],
+  "_prospects_note": "Prospects are unregistered. They can only ask about units in listings.json (public info only) and never create maintenance tickets.",
+  "prospects": []
+}

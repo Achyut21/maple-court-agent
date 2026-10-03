@@ -1,0 +1,29 @@
+{
+  "_note": "Units listed for showings. Prospects only ever see the 'public' block; everything else is private.",
+  "units": {
+    "1B": {
+      "status": "occupied_listed",
+      "tenant_notice_required": true,
+      "available_from": "2026-12-01",
+      "public": {
+        "beds": 1,
+        "baths": 1,
+        "sqft": 650,
+        "rent": 2650,
+        "description": "Bright first-floor one-bedroom with updated kitchen, hardwood floors, and heat included. Available December 1."
+      }
+    },
+    "5B": {
+      "status": "vacant",
+      "tenant_notice_required": false,
+      "available_from": "2026-10-05",
+      "public": {
+        "beds": 2,
+        "baths": 1,
+        "sqft": 900,
+        "rent": 3400,
+        "description": "Top-floor two-bedroom with city views, in-unit laundry, and heat included. Available October 5."
+      }
+    }
+  }
+}

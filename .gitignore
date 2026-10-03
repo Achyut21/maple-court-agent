@@ -1,0 +1,20 @@
+# Environments and offline packages (rebuild with: pip install --no-index --find-links wheels ...)
+.venv/
+.libs/
+wheels/
+__pycache__/
+
+# Secrets
+.env
+
+# Live demo state (tickets, showings, outbox, metrics) lives in the sandbox runtime
+runtime/
+
+# Scratch backups
+*.orig.md
+*.pre-*.md
+*.bak
+*~
+
+# Git cannot ignore by size: check for files over 10 MB before committing
+#   find . -path ./.git -prune -o -path ./.venv -prune -o -path ./wheels -prune -o -type f -size +10M -print

@@ -1,0 +1,81 @@
+{
+  "_note": "Deterministic rules enforced in code. The model proposes; these rules decide urgency floors and SLAs.",
+  "heating_season": {
+    "start": "09-15",
+    "end": "06-15",
+    "min_temp_day_f": 68,
+    "min_temp_night_f": 64
+  },
+  "urgency_levels": {
+    "urgent": {
+      "sla_hours": 24,
+      "examples": [
+        "no heat in heating season",
+        "temperature below lease minimum",
+        "no water",
+        "no hot water",
+        "flooding or active leak",
+        "toilet overflowing",
+        "sewage backup",
+        "gas smell",
+        "sparks or burning smell",
+        "unit lost power",
+        "lockout",
+        "entry door will not lock"
+      ]
+    },
+    "normal": {
+      "sla_hours": 72,
+      "examples": [
+        "appliance not working",
+        "slow drain",
+        "clog",
+        "single outlet dead",
+        "pests",
+        "window will not close",
+        "AC noise"
+      ]
+    },
+    "low": {
+      "sla_hours": 336,
+      "examples": [
+        "cosmetic",
+        "peeling paint",
+        "squeaky door",
+        "loose handle",
+        "light bulb",
+        "minor tenant-caused damage"
+      ]
+    }
+  },
+  "categories": [
+    "heating_cooling",
+    "plumbing",
+    "electrical",
+    "locks",
+    "appliance",
+    "pest",
+    "general",
+    "gas_emergency",
+    "not_maintenance"
+  ],
+  "gas_protocol": "Tell tenant to leave now and call 911 or the gas utility. Alert manager immediately. Do not schedule a vendor.",
+  "never_trust_message_for": [
+    "unit number",
+    "identity",
+    "urgency overrides"
+  ],
+  "showings": {
+    "notice_hours": 24,
+    "duration_min": 30,
+    "hours": {
+      "start": "09:00",
+      "end": "19:00"
+    },
+    "days": "Mon-Sat",
+    "max_times_from_prospect": 3,
+    "tenant_objection_window_hours": 12,
+    "demo_mode_objection_window_min": 0.75,
+    "clause": "3.1"
+  }
+}

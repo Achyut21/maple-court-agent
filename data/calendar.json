@@ -1,0 +1,184 @@
+{
+  "_note": "Dummy calendar for the property manager. 'today' in the demo is 2026-10-03. Event types: showing, inspection, vendor_visit, meeting, lease, admin, personal.",
+  "owner": {
+    "name": "Jordan Lee",
+    "role": "Property manager",
+    "telegram_id": 7747927489,
+    "timezone": "America/New_York",
+    "working_hours": {
+      "start": "08:30",
+      "end": "18:00"
+    }
+  },
+  "events": [
+    {
+      "id": "ev-001",
+      "date": "2026-10-03",
+      "start": "09:30",
+      "end": "10:00",
+      "title": "Morning walk-through: lobby + boiler room",
+      "type": "inspection",
+      "unit": null,
+      "with": null,
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": "Check boiler pressure before heating season ramps up"
+    },
+    {
+      "id": "ev-002",
+      "date": "2026-10-03",
+      "start": "11:00",
+      "end": "11:30",
+      "title": "Lease renewal call: Marcus Hill (1B)",
+      "type": "lease",
+      "unit": "1B",
+      "with": "Marcus Hill",
+      "location": "Phone",
+      "notes": "Lease ends Nov 30; offering 12-month renewal"
+    },
+    {
+      "id": "ev-003",
+      "date": "2026-10-03",
+      "start": "15:00",
+      "end": "15:45",
+      "title": "Showing: vacant unit 5B",
+      "type": "showing",
+      "unit": "5B",
+      "with": "Alex Rivera (prospect)",
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": "Prospect works at Kendall Sq; asked about parking"
+    },
+    {
+      "id": "ev-004",
+      "date": "2026-10-03",
+      "start": "17:00",
+      "end": "17:30",
+      "title": "Weekly owner update call",
+      "type": "meeting",
+      "unit": null,
+      "with": "Maple Court Properties LLC",
+      "location": "Zoom",
+      "notes": ""
+    },
+    {
+      "id": "ev-005",
+      "date": "2026-10-05",
+      "start": "09:00",
+      "end": "10:00",
+      "title": "Annual unit inspection: 4B",
+      "type": "inspection",
+      "unit": "4B",
+      "with": "Kenji Watanabe",
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": "24h entry notice required (lease 3.1) - send by Oct 4, 9:00 AM"
+    },
+    {
+      "id": "ev-006",
+      "date": "2026-10-05",
+      "start": "13:00",
+      "end": "14:00",
+      "title": "GreenShield quarterly pest treatment",
+      "type": "vendor_visit",
+      "unit": null,
+      "with": "GreenShield Pest",
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": "Units 3A-5B; notify tenants"
+    },
+    {
+      "id": "ev-007",
+      "date": "2026-10-06",
+      "start": "10:00",
+      "end": "10:30",
+      "title": "Move-out walkthrough prep: 5B paperwork",
+      "type": "admin",
+      "unit": null,
+      "with": null,
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": ""
+    },
+    {
+      "id": "ev-008",
+      "date": "2026-10-06",
+      "start": "14:00",
+      "end": "14:30",
+      "title": "Showing: vacant unit 5B",
+      "type": "showing",
+      "unit": "5B",
+      "with": "Sam Patel (prospect)",
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": ""
+    },
+    {
+      "id": "ev-009",
+      "date": "2026-10-07",
+      "start": "09:00",
+      "end": "11:00",
+      "title": "Fire alarm + smoke detector test (all units)",
+      "type": "inspection",
+      "unit": null,
+      "with": null,
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": "Entry notices to all tenants by Oct 6"
+    },
+    {
+      "id": "ev-010",
+      "date": "2026-10-07",
+      "start": "16:00",
+      "end": "16:30",
+      "title": "Lease signing: Hannah Brooks (4A) renewal",
+      "type": "lease",
+      "unit": "4A",
+      "with": "Hannah Brooks",
+      "location": "Leasing office",
+      "notes": ""
+    },
+    {
+      "id": "ev-011",
+      "date": "2026-10-08",
+      "start": "12:00",
+      "end": "13:00",
+      "title": "Budget review: Q4 maintenance spend",
+      "type": "meeting",
+      "unit": null,
+      "with": "Maple Court Properties LLC",
+      "location": "Zoom",
+      "notes": ""
+    },
+    {
+      "id": "ev-012",
+      "date": "2026-10-08",
+      "start": "15:00",
+      "end": "16:00",
+      "title": "AllFix: hallway paint touch-ups (floors 1-2)",
+      "type": "vendor_visit",
+      "unit": null,
+      "with": "AllFix Handyman",
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": ""
+    },
+    {
+      "id": "ev-013",
+      "date": "2026-10-09",
+      "start": "10:00",
+      "end": "10:30",
+      "title": "Rent delinquency review",
+      "type": "admin",
+      "unit": null,
+      "with": null,
+      "location": "120 Maple St, Cambridge, MA",
+      "notes": "Late fees apply after the 5th (lease 1.1)"
+    },
+    {
+      "id": "ev-014",
+      "date": "2026-10-09",
+      "start": "18:30",
+      "end": "20:00",
+      "title": "Dinner with family",
+      "type": "personal",
+      "unit": null,
+      "with": null,
+      "location": "Somerville",
+      "notes": ""
+    }
+  ],
+  "reminder_defaults_min": 30
+}
