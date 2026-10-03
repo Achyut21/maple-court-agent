@@ -2,9 +2,110 @@
 
 A Telegram agent for a small apartment building: it triages tenant maintenance requests, quotes the
 lease clause, drafts the vendor job for the manager to approve, and books apartment showings with
-24-hour tenant notice. Inference runs on a Dell Pro Max GB10.
+24-hour tenant notice.
 
 Dell x NVIDIA Hackathon, Boston, Oct 3 2026.
+
+## Runs entirely on one Dell Pro Max GB10
+
+The model, the agent, the business rules, and every tenant record live on a single Dell Pro Max GB10.
+No cloud LLM is involved at any step: across both 30-ticket eval runs, every model call went to the
+local vLLM server, 0 to a cloud API. Tenant names, leases, and units never leave the machine.
+
+| Component | Where it runs | Leaves the machine? |
+|---|---|---|
+| Model inference: Qwen3.6-35B-A3B (NVFP4) in vLLM | GB10 GPU, weights loaded from local disk | No |
+| Agent: OpenClaw | GB10, inside the NemoClaw/OpenShell sandbox | No. Its only model provider is `https://inference.local/v1` |
+| Business rules: Python MCP server with 16 tools | GB10 sandbox | No |
+| Tenant registry, leases, calendar, tickets, showings | GB10 sandbox, JSON files | No |
+| Message delivery | Telegram Bot API | Yes: the chat messages to and from the three people |
+| Web search, only when the manager asks for it | Brave Search API | Yes: the search query |
+
+The sandbox network policy entry for NVIDIA's hosted model API (`integrate.api.nvidia.com`) is
+excluded, so the agent cannot reach a cloud model even by mistake.
+
+## Tech stack
+
+| Layer | Technology |
+|---|---|
+| Hardware | Dell Pro Max with GB10 (NVIDIA GB10 Grace Blackwell, ARM64, 128 GB unified memory), DGX OS (Ubuntu 24.04) |
+| Model | Qwen3.6-35B-A3B, NVFP4 quantized (`nvidia/Qwen3.6-35B-A3B-NVFP4`) |
+| Inference server | vLLM in Docker (`nvcr.io/nvidia/vllm:26.05.post1-py3`), OpenAI-compatible API, `qwen3_coder` tool-call parser |
+| Agent | OpenClaw 2026.7.1 |
+| Sandbox and network policy | NVIDIA NemoClaw and OpenShell: egress allowlist, per-sender sessions, bot token injected at egress |
+| Tools | Python, MCP Python SDK (stdio server), matplotlib for charts |
+| Data | JSON files: tenant registry, leases, vendors, rules, calendar |
+| Messaging | Telegram Bot API through OpenClaw's Telegram channel |
+| Web search | Brave Search through NemoClaw |
+| Evaluation | Python scorer over 30 labeled tickets; vLLM `/metrics` for decode speed |
+| Build tooling | Claude Code wrote and tested the code during the hackathon. It is not part of the agent's runtime. |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    subgraph phones["Phones: private Telegram chats, allowlisted"]
+        T["Tenant"]
+        M["Property manager"]
+        P["Prospect"]
+    end
+
+    TG["Telegram Bot API<br/>message delivery only"]
+    BRAVE["Brave Search API<br/>only when the manager asks"]
+    CLOUD["NVIDIA hosted model API<br/>integrate.api.nvidia.com"]
+
+    subgraph gb10["Dell Pro Max GB10: all inference and all data"]
+        subgraph sandbox["NemoClaw / OpenShell sandbox"]
+            OC["OpenClaw agent<br/>prompt/AGENTS.md<br/>one session per sender"]
+            MCP["maple MCP server<br/>16 Python tools<br/>rules, privacy, approval gate"]
+            TIMER["showing_timer.py<br/>objection windows and reminders"]
+            DATA[("JSON data<br/>tenants, leases, calendar,<br/>tickets, showings")]
+        end
+        VLLM["vLLM<br/>Qwen3.6-35B-A3B NVFP4"]
+    end
+
+    T <--> TG
+    M <--> TG
+    P <--> TG
+    TG <--> OC
+    OC -->|"tool calls over MCP stdio"| MCP
+    MCP <--> DATA
+    TIMER <--> DATA
+    OC -->|"inference.local"| VLLM
+    MCP -->|"openclaw message send"| TG
+    TIMER -->|"openclaw message send"| TG
+    OC -.->|"search query"| BRAVE
+    OC -.->|"blocked by sandbox policy"| CLOUD
+
+    classDef local fill:#e8f5e9,stroke:#2e7d32,color:#1b5e20
+    classDef external fill:#fff8e1,stroke:#f9a825,color:#5d4037
+    classDef blocked fill:#ffebee,stroke:#c62828,color:#b71c1c,stroke-dasharray: 5 5
+    class OC,MCP,TIMER,DATA,VLLM local
+    class TG,BRAVE external
+    class CLOUD blocked
+```
+
+How a request moves through it:
+
+1. A tenant, manager, or prospect sends a Telegram message. Only allowlisted accounts reach the bot,
+   and each sender gets a separate session, so chat history never mixes between roles.
+2. OpenClaw sends the conversation to the local model through `inference.local` and gets back tool
+   calls.
+3. The maple MCP server runs each tool. The model proposes and code decides: identity and unit come
+   from the registry by numeric Telegram id, never from message text, and urgency floors, the gas
+   protocol, lease-based responsibility, 24-hour showing notice, and the approval gate are Python.
+4. Outbound messages go through `send_message`, which picks the recipient from saved records and
+   enforces privacy between roles: prospects never receive tenant names or contacts, tenants never
+   receive prospect names or contacts, and the manager sees everything.
+5. `showing_timer.py` closes tenant objection windows, confirms showings, and sends reminders.
+
+OpenClaw's built-in `message`, `exec`, `process`, `code_execution`, and file tools are denied, so
+every outbound message and every data read goes through the rules above. Every tool call appends
+`{ts, tool, ticket_id|showing_id, ms, ok, error}` to `runtime/metrics.jsonl`.
+
+Tools: `verify_sender`, `get_lease`, `create_ticket`, `draft_vendor_job`, `approve`, `send_message`,
+`get_calendar`, `add_event`, `get_listings`, `request_showing`, `confirm_showing`, `tenant_response`,
+`check_showings`, `list_showings`, `message_prospect`, `make_chart`.
 
 ## How this meets the judging criteria
 
@@ -14,16 +115,12 @@ The full loop runs on real phones over Telegram: tenant message, verification, t
 manager approval, tenant update, calendar entry. Showings run the same way: prospect request, rule
 checks, manager confirmation, tenant notice with an objection window, automatic confirmation.
 
-- The agent is OpenClaw inside a NemoClaw sandbox. It calls one Python MCP server with 16 tools
-  (`tools/server.py`).
-- The model proposes and code decides. Identity and unit come from the registry by numeric Telegram
-  id, never from message text. Urgency floors, the gas protocol, lease-based responsibility, 24-hour
-  showing notice, and the approval gate are Python, not prompt text.
-- Built in one day under a deadline, with tests for every tool (`tools/test_tools.py`,
-  `tools/test_schedule.py`) and a 30-ticket eval that drives the real agent (`eval/score.py`).
+- Built in one day, with tests for every tool (`tools/test_tools.py`, `tools/test_schedule.py`) and a
+  30-ticket eval that drives the real agent (`eval/score.py`).
 - Two eval runs: 26/30, then 28/30 after moving two lease rules into code and blocking duplicate
-  tickets. Median tool execution time in `eval/metrics.jsonl` is 0.4 ms over 329 calls, so the time
-  per ticket is the model, not the rules.
+  tickets.
+- Median tool execution time in `eval/metrics.jsonl` is 0.4 ms over 329 calls, so the time per ticket
+  is the model, not the rules.
 
 ### 2. Usefulness and business value
 
@@ -41,13 +138,12 @@ read the text, check who sent it, look up the lease, judge urgency, find a vendo
 ### 3. Local-first design
 
 - All inference runs on the GB10: Qwen3.6-35B-A3B (NVFP4) in vLLM, reached by the agent only through
-  `inference.local`.
-- The sandbox's network policy entry for NVIDIA's hosted API (`integrate.api.nvidia.com`) was excluded,
-  and OpenClaw's only configured model provider is `inference` at `https://inference.local/v1`.
+  `inference.local`. See the table at the top for what runs where.
+- OpenClaw's only configured model provider is `inference` at `https://inference.local/v1`, and the
+  policy entry for NVIDIA's hosted API is excluded.
 - In both eval runs, every model call was served by the local `inference` provider: 0 cloud LLM calls.
   Measured decode speed was 69 and 72 tokens/s.
-- Tenant names, leases, and units stay on the machine. The bot token never enters the sandbox in
-  plain form; OpenShell injects it at egress.
+- The bot token never enters the sandbox in plain form; OpenShell injects it at egress.
 
 ### 4. Demo quality
 
@@ -64,32 +160,6 @@ happy path:
 5. With no objection, the showing confirms automatically, about 45 to 60 seconds after the manager
    confirmed it.
 6. The manager asks to see the week and gets a timeline chart in Telegram.
-
-## Architecture
-
-```
-Tenant / manager / prospect phones (Telegram DMs, allowlisted)
-        |
-NemoClaw sandbox "hackathon" (OpenShell policy, per-sender sessions)
-  OpenClaw agent  --tool calls-->  maple MCP server (Python, stdio)          showing_timer.py
-  prompt: prompt/AGENTS.md         tools/maple.py     tickets, leases, approve   objection windows,
-        |                          tools/schedule.py  calendar, showings,        reminders
-        | inference.local                             messaging + privacy
-        v                          tools/charts.py    week / ticket charts
-vLLM on the GB10: Qwen3.6-35B-A3B-NVFP4                    |
-                                   outbound Telegram: `openclaw message send` (token injected by OpenShell)
-```
-
-- Privacy between roles is enforced when a message is sent: prospects never receive tenant names or
-  contacts, tenants never receive prospect names or contacts, and the manager sees everything.
-  Recipients come from saved records, never from the model.
-- OpenClaw's built-in `message`, `exec`, `process`, `code_execution`, and file tools are denied, so
-  every outbound message goes through the rules above. Web search stays on.
-- Every tool call appends `{ts, tool, ticket_id|showing_id, ms, ok, error}` to `runtime/metrics.jsonl`.
-
-Tools: `verify_sender`, `get_lease`, `create_ticket`, `draft_vendor_job`, `approve`, `send_message`,
-`get_calendar`, `add_event`, `get_listings`, `request_showing`, `confirm_showing`, `tenant_response`,
-`check_showings`, `list_showings`, `message_prospect`, `make_chart`.
 
 ## Results
 
