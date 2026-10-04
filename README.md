@@ -1,16 +1,39 @@
 # Maple Court Agent
 
-A Telegram agent for a small apartment building: it triages tenant maintenance requests, quotes the
-lease clause, drafts the vendor job for the manager to approve, and books apartment showings with
-24-hour tenant notice.
+A property manager's assistant that runs on one machine. Tenants report problems and prospects ask for
+showings over Telegram; the agent triages each request against the lease, drafts the vendor job, books
+showings with 24-hour tenant notice, and waits for the manager to approve before anything goes out.
 
-Dell x NVIDIA Hackathon, Boston, Oct 3 2026.
+The model, the agent, the business rules, and every tenant record stay on a single Dell Pro Max GB10.
+No cloud LLM is involved.
 
-## Runs entirely on one Dell Pro Max GB10
+Demo video: https://www.youtube.com/watch?v=iHMLBNJB1CE
 
-The model, the agent, the business rules, and every tenant record live on a single Dell Pro Max GB10.
-No cloud LLM is involved at any step: across both 30-ticket eval runs, every model call went to the
-local vLLM server, 0 to a cloud API. Tenant names, leases, and units never leave the machine.
+## What it does
+
+**Maintenance requests.** A tenant texts "no heat since last night". The agent checks who sent it,
+opens their lease, marks the request urgent, quotes the clause that says who pays (lease 7.2: the
+landlord), and drafts a job for the right vendor. The manager replies `APPROVE 1`; the tenant gets the
+booking and the visit goes on the calendar, with conflicts flagged.
+
+**Showings.** A prospect asks to see a unit. The agent checks the proposed time against the 24-hour
+notice rule, showing hours, and the manager's calendar, then asks the manager to confirm. The current
+tenant gets an entry notice and a window to object. With no objection, the showing confirms on its own.
+
+**Manager tools.** "Show my week" returns a timeline chart in Telegram. "Remind me in 30 minutes to
+call HeatPro" sets a reminder. The manager can relay a question to a prospect, and can ask for a web
+search (backup vendors, local rules).
+
+**Safety and privacy.**
+
+- Identity and unit come from a registry keyed by numeric Telegram id, never from what someone types.
+  A tenant in 1A who writes "I'm in 3B" is still treated as 1A.
+- A gas smell always gets "leave now and call 911", and no vendor is booked.
+- Prospects never see tenant names or contacts; tenants never see prospect details; the manager sees
+  everything. Each person has a separate chat memory.
+- Nothing reaches a vendor, tenant, or prospect without the manager's approval.
+
+## Runs entirely on one machine
 
 | Component | Where it runs | Leaves the machine? |
 |---|---|---|
@@ -18,11 +41,12 @@ local vLLM server, 0 to a cloud API. Tenant names, leases, and units never leave
 | Agent: OpenClaw | GB10, inside the NemoClaw/OpenShell sandbox | No. Its only model provider is `https://inference.local/v1` |
 | Business rules: Python MCP server with 16 tools | GB10 sandbox | No |
 | Tenant registry, leases, calendar, tickets, showings | GB10 sandbox, JSON files | No |
-| Message delivery | Telegram Bot API | Yes: the chat messages to and from the three people |
-| Web search, only when the manager asks for it | Brave Search API | Yes: the search query |
+| Message delivery | Telegram Bot API | Yes: the chat messages themselves |
+| Web search, only when the manager asks | Brave Search API | Yes: the search query |
 
-The sandbox network policy entry for NVIDIA's hosted model API (`integrate.api.nvidia.com`) is
-excluded, so the agent cannot reach a cloud model even by mistake.
+The sandbox network policy entry for NVIDIA's hosted model API is excluded, so the agent can't reach a
+cloud model even by mistake. OpenClaw's built-in messaging, shell, and file tools are denied, so every
+outbound message and data read goes through the rules in code.
 
 ## Tech stack
 
@@ -33,12 +57,11 @@ excluded, so the agent cannot reach a cloud model even by mistake.
 | Inference server | vLLM in Docker (`nvcr.io/nvidia/vllm:26.05.post1-py3`), OpenAI-compatible API, `qwen3_coder` tool-call parser |
 | Agent | OpenClaw 2026.7.1 |
 | Sandbox and network policy | NVIDIA NemoClaw and OpenShell: egress allowlist, per-sender sessions, bot token injected at egress |
-| Tools | Python, MCP Python SDK (stdio server), matplotlib for charts |
-| Data | JSON files: tenant registry, leases, vendors, rules, calendar |
+| Tools | Python, MCP Python SDK (stdio server), matplotlib |
+| Data | JSON files: tenant registry, leases, vendors, rules, calendar, listings |
 | Messaging | Telegram Bot API through OpenClaw's Telegram channel |
 | Web search | Brave Search through NemoClaw |
 | Evaluation | Python scorer over 30 labeled tickets; vLLM `/metrics` for decode speed |
-| Build tooling | Claude Code wrote and tested the code during the hackathon. It is not part of the agent's runtime. |
 
 ## Architecture
 
@@ -87,87 +110,24 @@ flowchart LR
 
 How a request moves through it:
 
-1. A tenant, manager, or prospect sends a Telegram message. Only allowlisted accounts reach the bot,
-   and each sender gets a separate session, so chat history never mixes between roles.
-2. OpenClaw sends the conversation to the local model through `inference.local` and gets back tool
-   calls.
-3. The maple MCP server runs each tool. The model proposes and code decides: identity and unit come
-   from the registry by numeric Telegram id, never from message text, and urgency floors, the gas
-   protocol, lease-based responsibility, 24-hour showing notice, and the approval gate are Python.
-4. Outbound messages go through `send_message`, which picks the recipient from saved records and
-   enforces privacy between roles: prospects never receive tenant names or contacts, tenants never
-   receive prospect names or contacts, and the manager sees everything.
-5. `showing_timer.py` closes tenant objection windows, confirms showings, and sends reminders.
+1. Someone sends a Telegram message. Only allowlisted accounts reach the bot, and each sender gets a
+   separate session.
+2. OpenClaw sends the conversation to the local model through `inference.local` and gets back tool calls.
+3. The MCP server runs each tool. The model proposes and code decides: identity, urgency floors, the gas
+   protocol, lease-based responsibility, 24-hour showing notice, and the approval gate are all Python.
+4. Outbound messages go through `send_message`, which picks the recipient from saved records and filters
+   what each role is allowed to see.
+5. `showing_timer.py` closes objection windows, confirms showings, and sends reminders.
 
-OpenClaw's built-in `message`, `exec`, `process`, `code_execution`, and file tools are denied, so
-every outbound message and every data read goes through the rules above. Every tool call appends
-`{ts, tool, ticket_id|showing_id, ms, ok, error}` to `runtime/metrics.jsonl`.
-
-Tools: `verify_sender`, `get_lease`, `create_ticket`, `draft_vendor_job`, `approve`, `send_message`,
-`get_calendar`, `add_event`, `get_listings`, `request_showing`, `confirm_showing`, `tenant_response`,
-`check_showings`, `list_showings`, `message_prospect`, `make_chart`.
-
-## How this meets the judging criteria
-
-### 1. Technical execution
-
-The full loop runs on real phones over Telegram: tenant message, verification, ticket, vendor draft,
-manager approval, tenant update, calendar entry. Showings run the same way: prospect request, rule
-checks, manager confirmation, tenant notice with an objection window, automatic confirmation.
-
-- Built in one day, with tests for every tool (`tools/test_tools.py`, `tools/test_schedule.py`) and a
-  30-ticket eval that drives the real agent (`eval/score.py`).
-- Two eval runs: 26/30, then 28/30 after moving two lease rules into code and blocking duplicate
-  tickets.
-- Median tool execution time in `eval/metrics.jsonl` is 0.4 ms over 329 calls, so the time per ticket
-  is the model, not the rules.
-
-### 2. Usefulness and business value
-
-The owner is the property manager, who also acts as the leasing agent. Their workflow today is manual:
-read the text, check who sent it, look up the lease, judge urgency, find a vendor, coordinate access.
-
-- Every ticket arrives triaged: urgency, who pays, and the lease clause quoted word for word.
-- Nothing goes out without the manager: vendor jobs wait for `APPROVE`, showings wait for `CONFIRM`.
-- In the eval, the agent handled 30 tickets in 14.3 minutes of agent time. Our own estimate for doing
-  the same by hand is about 240 minutes (8 minutes per ticket); that baseline is an estimate, not a
-  measurement.
-- Showings follow lease clause 3.1: at least 24 hours notice, a tenant objection window, and no
-  tenant details shared with the prospect.
-
-### 3. Local-first design
-
-- All inference runs on the GB10: Qwen3.6-35B-A3B (NVFP4) in vLLM, reached by the agent only through
-  `inference.local`. See the table at the top for what runs where.
-- OpenClaw's only configured model provider is `inference` at `https://inference.local/v1`, and the
-  policy entry for NVIDIA's hosted API is excluded.
-- In both eval runs, every model call was served by the local `inference` provider: 0 cloud LLM calls.
-  Measured decode speed was 69 and 72 tokens/s.
-- The bot token never enters the sandbox in plain form; OpenShell injects it at egress.
-
-### 4. Demo quality
-
-The live demo uses three phones (manager, tenant, prospect) and shows the rules working, not only the
-happy path:
-
-1. In parallel, the prospect asks to see unit 1B and the tenant reports no heat. The tenant gets a
-   ticket marked urgent with lease 7.2 quoted; the manager gets the vendor draft and the showing request.
-2. The manager confirms the showing. The tenant gets a lease 3.1 entry notice with an objection window
-   (45 seconds in demo mode, 12 hours otherwise).
-3. The manager approves the ticket. The tenant is notified and the visit goes on the calendar, with
-   conflicts flagged.
-4. The prospect asks for the tenant's name and phone. The request is refused.
-5. With no objection, the showing confirms automatically, about 45 to 60 seconds after the manager
-   confirmed it.
-6. The manager asks to see the week and gets a timeline chart in Telegram.
+Every tool call appends `{ts, tool, ticket_id|showing_id, ms, ok, error}` to `runtime/metrics.jsonl`.
 
 ## Results
 
-30 labeled tickets (`data/test_tickets.json`), including two strangers, one prompt injection, one
-wrong-unit claim, and one rent question. A ticket passes when urgency, responsibility, and lease
-clause are all correct; the stranger and rent tickets pass only if no ticket is created.
+I tested the agent on 30 labeled tickets (`data/test_tickets.json`), including two strangers, a prompt
+injection, a wrong-unit claim, and a rent question. A ticket passes when urgency, responsibility, and
+lease clause are all correct; the stranger and rent tickets pass only if no ticket is created.
 
-| Metric | Run 1 (baseline) | Run 2 |
+| Metric | Run 1 | Run 2 |
 |---|---|---|
 | Fully correct (urgency + responsibility + clause) | 26/30 (87%) | **28/30 (93%)** |
 | Urgency / responsibility / clause | 96% / 93% / 93% | 96% / 96% / 93% |
@@ -177,24 +137,40 @@ clause are all correct; the stranger and rent tickets pass only if no ticket is 
 | Cloud LLM calls | 0 | 0 |
 | Median / slowest seconds per ticket | 25.6 / 45.9 | 28.0 / 50.6 |
 | Decode tokens per second (vLLM) | 69 | 72 |
-| Tool calls per ticket (average) | 8.7 | 9.9 |
-| Agent minutes for 30 tickets (manual: ~240, our estimate) | 13.8 | 14.3 |
+| Agent minutes for 30 tickets | 13.8 | 14.3 |
 
-Run 2 change: lockout and light-bulb lease rules moved into code, duplicate tickets prevented, and
-"always open a ticket" added to the prompt. Full report: `eval/report.md`; history: `eval/history.csv`.
+Between runs, the lockout and light-bulb lease rules moved from the prompt into code, duplicate tickets
+were blocked, and the prompt was told to always open a ticket. Full report: `eval/report.md`.
+
+Doing the same 30 tickets by hand would take roughly 240 minutes at 8 minutes each. That baseline is my
+estimate, not a measurement.
 
 ![Accuracy by field, run 1 vs run 2](eval/charts/accuracy_by_field.png)
 
-![Score by eval run against the 25/30 target](eval/charts/score_by_run.png)
+![Score by eval run](eval/charts/score_by_run.png)
 
 ![Seconds per ticket in run 2](eval/charts/latency_per_ticket.png)
 
 ![Safety checks in run 2](eval/charts/safety_checks.png)
 
-Showing rules are covered by the 8 labeled cases in `data/test_showings.json`, all passing in
-`tools/test_schedule.py`. These are deterministic tests, not an agent eval.
+The showing rules are covered by 8 labeled cases in `data/test_showings.json`, run as deterministic tests
+in `tools/test_schedule.py`.
 
-## Setup (on the GB10)
+## Project layout
+
+```
+tools/      MCP server, the 16 tools, showing timer, charts, and their tests
+data/       tenant registry, leases, vendors, rules, calendar, listings, labeled test cases
+prompt/     AGENTS.md, the agent's instructions inside the sandbox
+eval/       scorer, run results, report, history, and charts
+scripts/    deploy, runtime reset, and demo reset
+docs/       short write-up
+```
+
+## Running it
+
+You need a Dell Pro Max with GB10 (or a DGX Spark) with NemoClaw onboarded, vLLM serving
+`nvidia/Qwen3.6-35B-A3B-NVFP4` on `localhost:8000`, and a Telegram bot connected through NemoClaw.
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install --no-index --find-links wheels mcp matplotlib
@@ -203,7 +179,7 @@ scripts/deploy.sh --first          # upload code, data, prompt, wheels; build /s
 scripts/deploy.sh --code           # later: code/data/prompt only, no config write
 ```
 
-Sandbox settings, applied host-side so OpenClaw's config hash stays in sync (needs Docker group access):
+Sandbox settings, applied host-side so OpenClaw's config hash stays in sync:
 
 ```bash
 sg docker -c "nemoclaw hackathon config set --key session.dmScope --value per-channel-peer"
@@ -211,21 +187,20 @@ sg docker -c "nemoclaw hackathon config set --key agents.defaults.userTimezone -
 sg docker -c "nemoclaw hackathon config set --key channels.telegram.streaming.mode --value off --config-accept-new-path"
 ```
 
-Before recording a demo, `scripts/demo_reset.sh` clears tickets, showings, and the three Telegram
-chat sessions, and keeps the metrics and eval files.
+`scripts/demo_reset.sh` clears tickets, showings, and chat sessions, and keeps the metrics and eval files.
 
 ## Known limits
 
-- The sender id reaches the tools through the model (read from the session key in the system
-  prompt); the tools then decide role and unit from the registry. In run 2 the model once failed to
-  read it and asked the tenant for their unit instead (#4): no ticket was created, so urgent recall
-  dropped to 10/11.
-- The eval drives `openclaw agent` sessions, not live Telegram delivery; messages are recorded, not
-  sent, during the eval.
+- The sender id reaches the tools through the model, read from the session key in the system prompt;
+  the tools then decide role and unit from the registry. In run 2 the model once failed to read it and
+  asked a tenant for their unit instead. No ticket was created, which is why urgent recall is 10/11.
+- The eval drives `openclaw agent` sessions, not live Telegram delivery.
 - Vendors are contacted by the manager by phone; the agent drafts the message.
-- The ~8 minutes per ticket manual baseline is our estimate.
+- Tenants are added to the registry by hand.
+- It has only been run against one mock building.
 
-## What's next
+## Roadmap
 
-- Tenant invite codes, so new tenants register themselves instead of being added to the registry by hand.
-- More buildings: one registry and lease set per property, with the same rules in code.
+- Tenant self-registration with one-time invite codes from the lease
+- Several buildings on one machine, each with its own leases and rules
+- Passing the sender id to tools directly instead of through the model
